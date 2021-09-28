@@ -1,0 +1,83 @@
+--Normalized table
+CREATE TABLE public."Products"
+(
+    Item_no integer PRIMARY KEY,
+    Category_Name character varying(100),
+    Item_description character varying(200),
+    Vendor integer,
+	Vendor_name character varying(100),
+	Bottle_size integer,
+	pack integer,
+	Inner_pack integer,
+	Age character varying(100),
+	Proof character varying(100), 
+	List_date timestamp,
+	Upc character varying(100),
+	Scc character varying(100),
+	Bottle_price money,
+	Shelf_price numeric (10,2),
+	Case_cost numeric (10,2)
+)
+
+Select * from "Products";
+
+COPY "Products" FROM 'C:\Users\Public\Documents\APM (Data Analyst) Exercise DB\products.csv' DELIMITER ',' CSV;
+
+create table public."Stores"
+(
+	Store integer PRIMARY KEY,
+	Store_Name character varying(100),
+	Store_status character varying(5),
+	Store_Address character varying(100),
+	Address_info character varying(100)
+)
+
+select * from "Stores"
+
+COPY "Stores" FROM 'C:\Users\Public\Documents\APM (Data Analyst) Exercise DB\stores.csv' DELIMITER ',' CSV;
+
+create table public."Counties"
+(
+	County character varying(100),
+	Population integer
+)
+
+COPY "Counties" FROM 'C:\Users\Public\Documents\APM (Data Analyst) Exercise DB\counties.csv' DELIMITER ',' CSV;
+
+select * from "Counties"
+
+create table public."Sales"
+(
+	Sales_Date timestamp,
+	Convenience_store character varying(100),
+	Store integer,
+	County_number character varying(100),
+	County character varying(100),
+	Category character varying(100),
+	Category_Name character varying(100),
+	Vendor_no character varying(100),
+	Vendor character varying(100),
+	Item integer,
+	Description character varying(100),
+	Pack integer,
+	Litre_sizr integer,
+	State_btl_cost money,
+	Btl_price money,
+	Bottle_qty integer,
+	Total numeric (10,2)
+)
+
+select * from "Sales"
+
+
+
+
+
+
+
+
+
+
+
+
+
