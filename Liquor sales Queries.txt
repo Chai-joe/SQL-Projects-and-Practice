@@ -1,0 +1,108 @@
+--Questions and Solutions
+
+1.	Which products have a case cost of more than $100?
+	Solution: Total number of rows - 3730 
+	Query: select * from "Products"	
+		   where case_cost > 100
+
+2.	Which tequilas have a case cost of more than $100?
+	Solution: Total rows: 422
+	Query: select * from "Products"
+           where category_name = 'TEQUILA' and case_cost > 100
+
+3.	Which tequilas or scotch whiskies have a case cost of more than $100?
+	Solution: Total no of rows - 1037
+	Query: select * from "Products"
+	       where (category_name = 'TEQUILA' or category_name = 'SCOTCH WHISKIES' or category_name = 'SINGLE MALT SCOTCH') and case_cost > 100
+
+4.	Which tequilas or scotch whiskies have a case cost between $100 and $120?
+	Solution: Total no of rows - 120
+	Query: select * from "Products"
+		   where (category_name = 'TEQUILA' or category_name = 'SCOTCH WHISKIES' or category_name = 'SINGLE MALT SCOTCH') and case_cost between 100 and 120
+
+		   Note - We use between operator to obtain result which lie between specified values
+
+5.	Which whiskies of any kind cost more than $100?
+	Solution: Total no of rows affected - 46
+	Query: select * from "Products"
+	       where category_main = 'WHISKEY' and bottle_price ::Numeric > 100
+
+	       Note - Since the column bottle_price has been declared with the type money we have to typecast it to numeric to get the result - This is done using ::Numeric after the column name
+	
+6.	Which whiskies of any kind cost between $100 and $150?
+	Solution: Total no of rows  - 30
+	Query: Note - Type conversion required from money data type to numeric to return values
+		   select * from "Products"
+           where category_main = 'WHISKEY' and bottle_price ::Numeric between 100 and 150
+
+           Note - To check if the values returned are correct use a min max function on the data
+           select min(bottle_price), max(bottle_price) from
+           (select * from "Products"
+		   where category_main = 'WHISKEY' and bottle_price ::Numeric between 100 and 150) as min_max
+
+7.	Which products except tequilas cost between $100 and $120?
+	Solution: Total no of rows affected is 70
+	Query: Note - Using the not operator to exclude the value tequila from the search
+		   select * from "Products"
+		   where category_name != 'TEQUILA' and bottle_price ::Numeric between 100 and 120
+
+8.	Which products are not from vendor ‘Jim Beam Brands’?
+	Solution: Total no of rows - 9052
+	Query: select * from "Products"
+		   where vendor_name != 'Jim Beam Brands'
+
+	Note - can use count(*) to obtain only the number of products
+
+
+9.	Which products are over 90 proof?
+	Solution: Total no of rows - 765
+	Query: select * from "Products"
+		   where proof ::Numeric > 90
+
+10.	Which products have a case cost of less than $60?
+	Solution: Total no rows - 2826
+	Query: select * from "Products"
+           where case_cost < 60
+
+    Solution: Total no rows - 
+	Query:
+
+11.	Which products are either Single Malt Scotches or Canadian Whiskies (based on category name)?
+	Solution: Total no rows - 687
+	Query: select * from "Products"
+		   where (category_name = 'CANADIAN WHISKIES' or category_name = 'SINGLE MALT SCOTCH')
+
+12.	Which products have ‘Whiskies’ in the category name?
+	Solution: Total no rows - 1538
+	Query: Note - Have used like operator in where clause to find the required substring
+		   select count(*) from "Products"
+		   where category_name LIKE '%WHISKIES%'
+
+
+13.	Which products have a shelf_price between $4 and $10?
+   Solution: Total no rows - 2701
+   Query: select * from "Products"
+		  where shelf_price between 4 and 10
+	
+14.	Which products have a bottle_price between $4 and $10?
+	Solution: Total no rows - 4011
+	Query: select * from "Products"
+		   where bottle_price ::Numeric between 4 and 10
+
+
+15.	Which unique products come in packs larger than 12?
+	Solution: Total no rows - 4184
+	Query: select distinct(item_description) from "Products"
+		   where pack > 10
+
+	Note: we use the distinct command when we need to obtain the distinct values and remove the duplicates while obtaining a result
+
+16.	How many unique products have less than 12 in a pack?
+	Solution: Total no of rows - 3579
+	Query: select distinct(item_description) from "Products"
+		   where pack < 12
+
+17.	Which unique products have a case cost of less than $70?
+	Solution: Total no  of rows - 2850
+	Query: select distinct(item_description) from "Products"
+		   where case_cost < 70
